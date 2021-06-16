@@ -20,6 +20,7 @@ dependencies {
 //	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 //	runtimeOnly 'mysql:mysql-connector-java'
 //	runtimeOnly 'org.postgresql:postgresql'
+// implementation 'javax.xml.bind:jaxb-api:2.2.4 2.2.12-b140109.1041
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
 }

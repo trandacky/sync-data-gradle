@@ -1,8 +1,6 @@
 package com.dacky.config;
 
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-
-import javax.xml.bind.DatatypeConverter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -10,11 +8,13 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
+import javax.xml.bind.DatatypeConverter;
+
 public class FillData {
     public static final String SQL_VALUE_NULL = "NULL";
 
-    public static String getValueInsert(SqlRowSet sqlRowSet, int columnPosition) throws SQLException {
-        int dbType = sqlRowSet.getMetaData().getColumnType(columnPosition);
+    public static String getValueInsert(ResultSet resultSet, int columnPosition) throws SQLException {
+        int dbType = resultSet.getMetaData().getColumnType(columnPosition);
         String value;
         switch (dbType) {
             case Types.BOOLEAN:
@@ -23,42 +23,42 @@ public class FillData {
             case Types.INTEGER:
             case Types.SMALLINT:
             case Types.TINYINT:
-                value = sqlNumber(sqlRowSet.getInt(columnPosition));
+                value = sqlNumber(resultSet.getInt(columnPosition));
                 break;
             case Types.BIGINT:
             case Types.NUMERIC:
-                value = sqlNumber(sqlRowSet.getLong(columnPosition));
+                value = sqlNumber(resultSet.getLong(columnPosition));
                 break;
             case Types.DECIMAL:
-                value = sqlNumber(sqlRowSet.getBigDecimal(columnPosition));
+                value = sqlNumber(resultSet.getBigDecimal(columnPosition));
                 break;
             case Types.DOUBLE:
-                value = sqlNumber(sqlRowSet.getDouble(columnPosition));
+                value = sqlNumber(resultSet.getDouble(columnPosition));
                 break;
             case Types.REAL:
             case Types.FLOAT:
-                float floatValue = sqlRowSet.getFloat(columnPosition);
-                value = sqlNumber(sqlRowSet.wasNull() ? null : floatValue);
+                float floatValue = resultSet.getFloat(columnPosition);
+                value = sqlNumber(resultSet.wasNull() ? null : floatValue);
                 break;
             case Types.BLOB:
             case Types.BINARY:
             case Types.VARBINARY:
-                value = sqlBytes((byte [])sqlRowSet.getObject(columnPosition));
+                value = sqlBytes(resultSet.getBytes(columnPosition));
                 //////// it fix later
                 break;
             case Types.TIME:
             case Types.TIME_WITH_TIMEZONE:
-                value = sqlTime(sqlRowSet.getTime(columnPosition), getTimeFormat());
+                value = sqlTime(resultSet.getTime(columnPosition), getTimeFormat());
                 break;
             case Types.TIMESTAMP:
             case Types.TIMESTAMP_WITH_TIMEZONE:
-                value = sqlTimestamp(sqlRowSet.getTimestamp(columnPosition), getDateTimeFormat());
+                value = sqlTimestamp(resultSet.getTimestamp(columnPosition), getDateTimeFormat());
                 break;
             case Types.DATE:
-                value = sqlDate(sqlRowSet.getDate(columnPosition), getDateFormat());
+                value = sqlDate(resultSet.getDate(columnPosition), getDateFormat());
                 break;
             default:
-                return sqlString(sqlRowSet.getString(columnPosition));
+                return sqlString(resultSet.getString(columnPosition));
         }
         return value;
     }
@@ -70,8 +70,8 @@ public class FillData {
         if (query == null) {
             return SQL_VALUE_NULL;
         }
-        query=query.replaceAll("\"","\"\"");
-        return "\""+query+"\"";
+        query=query.replaceAll("'","''");
+        return "'"+query+"'";
     }
 
     public static String sqlFormatDate(java.util.Date date, String format) {
