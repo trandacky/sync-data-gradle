@@ -11,10 +11,11 @@ import java.util.Objects;
 import javax.xml.bind.DatatypeConverter;
 
 /**
- * this class fill data and return data to set value in query with getValueInsert fuction
+ * this class fill data and return data to set value in query with getValueInsert function
  */
 public class FillData {
     public static final String SQL_VALUE_NULL = "NULL";
+
     public static String getValueInsert(ResultSet resultSet, int columnPosition) throws SQLException {
         int dbType = resultSet.getMetaData().getColumnType(columnPosition);
         String value;

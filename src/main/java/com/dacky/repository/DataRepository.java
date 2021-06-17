@@ -17,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dacky.entity.Temp;
 
+/**
+ * this class is connect and process with database
+ */
 @Transactional
 @Repository
 public class DataRepository {
@@ -30,9 +33,10 @@ public class DataRepository {
     @Autowired
     @Qualifier("datasource1")
     private DataSource datasource1;
+
     /**
      * SELECT * FROM temp and mapping to Temp entity
-     * */
+     */
     public List getAllTempDB1() {
         List temps = jdbcTemplate1.query(Constants.SELECT_QUERY_TEMP,
                 (rs, rowNum) -> new Temp(rs.getLong("id"), rs.getLong("id_column_value"),
@@ -42,7 +46,7 @@ public class DataRepository {
     }
 
     public void deleteTempDB1(List<Temp> temps) {
-        jdbcTemplate1.batchUpdate("DELETE FROM temp WHERE id = ?", temps, Constants.COUNT_QUERY,
+        jdbcTemplate1.batchUpdate("DELETE FROM " + Constants.TABLE_TEMP_NAME + " WHERE id = ?", temps, Constants.COUNT_QUERY,
                 new ParameterizedPreparedStatementSetter<Temp>() {
                     @Override
                     public void setValues(PreparedStatement ps, Temp temp) throws SQLException {
@@ -50,15 +54,19 @@ public class DataRepository {
                     }
                 });
     }
+
     /**
-     *  SELECT * FROM product WHERE id = ...
-     * */
+     * SELECT * FROM product WHERE id = ...
+     */
     public ResultSet findDattaDB1(Temp temp) throws SQLException {
         Statement statement = datasource1.getConnection().createStatement();
         return statement.executeQuery("SELECT * FROM " + temp.getTableName() + " WHERE " + temp.getIdColumnName()
                 + " = " + temp.getIdColumnValue());
     }
 
+    /**
+     * execute block query to DB2
+     */
     public void executeQueryDB2(String[] queries) {
         jdbcTemplate2.batchUpdate(queries);
     }

@@ -4,6 +4,9 @@ public class Constants {
     public static final String QUERY_INSERT = "INSERT";
     public static final String QUERY_UPDATE = "UPDATE";
     public static final String QUERY_DELETE = "DELETE";
+    /**
+     *
+     * */
     public static final String TABLE_TEMP_NAME = "temp";
     /**
      * count query is amount record select in temp and process
