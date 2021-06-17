@@ -1,0 +1,23 @@
+
+
+CREATE OR REPLACE TRIGGER insert_trigger
+AFTER INSERT ON product
+FOR EACH ROW
+INSERT INTO temp(id_column_name, id_column_value, query_type, table_name, last_modify)
+VALUES ("id", new.id, "INSERT", "product", now())
+
+CREATE OR REPLACE TRIGGER update_trigger
+AFTER UPDATE ON product
+FOR EACH ROW
+INSERT INTO temp(id_column_name, id_column_value, query_type, table_name, last_modify)
+VALUES ("id", new.id, "UPDATE", "product", now())
+
+
+CREATE OR REPLACE TRIGGER delete_trigger
+AFTER DELETE ON product
+FOR EACH ROW
+BEGIN
+DELETE FROM temp WHERE id_column_value = old.id;
+INSERT INTO temp(id_column_name, id_column_value, query_type, table_name, last_modify)
+VALUES ("id", old.id, "DELETE", "product", now());
+END

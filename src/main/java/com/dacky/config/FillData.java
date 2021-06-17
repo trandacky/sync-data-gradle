@@ -10,9 +10,11 @@ import java.util.Objects;
 
 import javax.xml.bind.DatatypeConverter;
 
+/**
+ * this class fill data and return data to set value in query with getValueInsert fuction
+ */
 public class FillData {
     public static final String SQL_VALUE_NULL = "NULL";
-
     public static String getValueInsert(ResultSet resultSet, int columnPosition) throws SQLException {
         int dbType = resultSet.getMetaData().getColumnType(columnPosition);
         String value;
@@ -44,7 +46,6 @@ public class FillData {
             case Types.BINARY:
             case Types.VARBINARY:
                 value = sqlBytes(resultSet.getBytes(columnPosition));
-                //////// it fix later
                 break;
             case Types.TIME:
             case Types.TIME_WITH_TIMEZONE:
@@ -63,15 +64,12 @@ public class FillData {
         return value;
     }
 
-    /**
-     * fix sql injection
-     * */
     public static String sqlString(String query) {
         if (query == null) {
             return SQL_VALUE_NULL;
         }
-        query=query.replaceAll("'","''");
-        return "'"+query+"'";
+        query = query.replaceAll("'", "''");
+        return "'" + query + "'";
     }
 
     public static String sqlFormatDate(java.util.Date date, String format) {
@@ -105,12 +103,14 @@ public class FillData {
         }
         return String.valueOf(value);
     }
+
     public static String sqlBytes(byte[] bytes) {
         if (Objects.isNull(bytes)) {
             return SQL_VALUE_NULL;
         }
         return DatatypeConverter.printHexBinary(bytes);
     }
+
     public static String formatDate(java.util.Date date, String pattern) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);

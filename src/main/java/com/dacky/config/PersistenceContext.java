@@ -12,6 +12,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
+/**
+ * this class config data with config in application.properties
+ */
 public class PersistenceContext {
     @Bean(name = "datasource1")
     @Primary

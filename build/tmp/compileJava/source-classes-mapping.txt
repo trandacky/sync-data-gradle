@@ -1,3 +1,7 @@
+com/dacky/config/FillData.java
+ com.dacky.config.FillData
+com/dacky/SyncApplication.java
+ com.dacky.SyncApplication
 com/dacky/config/PersistenceContext.java
  com.dacky.config.PersistenceContext
 com/dacky/config/DataRepository.java
@@ -7,5 +11,7 @@ com/dacky/entity/Product.java
  com.dacky.entity.Product
 com/dacky/entity/Temp.java
  com.dacky.entity.Temp
+com/dacky/service/AppService.java
+ com.dacky.service.AppService
 com/dacky/config/Constants.java
  com.dacky.config.Constants

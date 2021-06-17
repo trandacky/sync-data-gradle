@@ -2,6 +2,9 @@ package com.dacky.entity;
 
 import java.sql.Timestamp;
 
+/**
+ * this class to mapping data from temp table to entity
+ * */
 public class Temp {
     private Long id;
     private String idColumnName;
