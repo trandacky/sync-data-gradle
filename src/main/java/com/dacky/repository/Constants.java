@@ -1,4 +1,4 @@
-package com.dacky.config;
+package com.dacky.repository;
 
 public class Constants {
     public static final String QUERY_INSERT = "INSERT";

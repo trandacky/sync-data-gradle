@@ -1,4 +1,4 @@
-package com.dacky.config;
+package com.dacky.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

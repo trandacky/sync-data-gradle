@@ -1,4 +1,4 @@
-package com.dacky.config;
+package com.dacky.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

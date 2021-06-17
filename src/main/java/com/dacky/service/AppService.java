@@ -11,9 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dacky.config.Constants;
-import com.dacky.config.DataRepository;
-import com.dacky.config.FillData;
+import com.dacky.repository.Constants;
+import com.dacky.repository.DataRepository;
 import com.dacky.entity.Temp;
 
 @Service
